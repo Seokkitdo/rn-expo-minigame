@@ -56,7 +56,7 @@ function GameScreen({ userNumber, onGameOver }: GameScreenProps) {
     const newRandomNumber = generateRandomBetween(
       minBoundary,
       maxBoundary,
-      userNumber
+      currentGuess
     );
     setCurrentGuess(newRandomNumber);
   }
