@@ -1,10 +1,20 @@
 import { useState } from 'react';
-import { TextInput, View, StyleSheet, Alert } from 'react-native';
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  Alert,
+  useColorScheme,
+} from 'react-native';
 
-import PrimaryButton from '../components/PrimaryButton';
-import { LinearGradient } from 'expo-linear-gradient';
+import PrimaryButton from '../components/ui/PrimaryButton';
+import Colors from '../constants/color';
 
-function StartGameScreen() {
+type PrimaryButtonProps = {
+  onPickNumber: (pickedNumber: number) => void;
+};
+
+function StartGameScreen({ onPickNumber }: PrimaryButtonProps) {
   const [enteredNumber, setEnteredNumber] = useState('');
 
   function numberInputHandler(inputText: string) {
@@ -25,8 +35,10 @@ function StartGameScreen() {
       return;
     }
 
-    console.log('valid number');
+    onPickNumber(chosenNumber);
   }
+
+  const isDarkMode = useColorScheme() === 'dark';
 
   return (
     <View style={styles.inputContainer}>
@@ -54,13 +66,16 @@ function StartGameScreen() {
 export default StartGameScreen;
 
 const styles = StyleSheet.create({
+  widgetContainer: {
+    flex: 1,
+  },
   inputContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 100,
     marginHorizontal: 24,
     padding: 16,
-    backgroundColor: '#3b021f',
+    backgroundColor: Colors.primary800,
     borderRadius: 8,
     elevation: 4,
     shadowColor: 'black',
@@ -72,9 +87,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     fontSize: 32,
-    borderBottomColor: '#ddb52f',
+    borderBottomColor: Colors.accent500,
     borderBottomWidth: 2,
-    color: '#ddb52f',
+    color: Colors.accent500,
     marginVertical: 8,
     fontWeight: 'bold',
     textAlign: 'center',
